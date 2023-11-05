@@ -1,0 +1,143 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="NegociosModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="CATEGORIA">
+    <Key>
+      <PropertyRef Name="IdCategoria" />
+    </Key>
+    <Property Name="IdCategoria" Type="Int32" Nullable="false" />
+    <Property Name="NombreCategoria" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="PRODUCTO" Relationship="Self.FK__PRODUCTO__IdCate__4316F928" FromRole="CATEGORIA" ToRole="PRODUCTO" />
+  </EntityType>
+  <EntityType Name="PRODUCTO">
+    <Key>
+      <PropertyRef Name="IdProducto" />
+    </Key>
+    <Property Name="IdProducto" Type="Int32" Nullable="false" />
+    <Property Name="NombreProducto" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="IdProveedor" Type="Int32" />
+    <Property Name="IdCategoria" Type="Int32" />
+    <Property Name="umedida" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="PrecioUnidad" Type="Decimal" Precision="10" Scale="0" Nullable="false" />
+    <Property Name="UnidadesEnExistencia" Type="Int16" Nullable="false" />
+    <NavigationProperty Name="CATEGORIA" Relationship="Self.FK__PRODUCTO__IdCate__4316F928" FromRole="PRODUCTO" ToRole="CATEGORIA" />
+    <NavigationProperty Name="DETALLEPEDIDO" Relationship="NegociosModel.FK__DETALLEPE__IdPro__534D60F1" FromRole="PRODUCTO" ToRole="DETALLEPEDIDO" />
+  </EntityType>
+  <Association Name="FK__PRODUCTO__IdCate__4316F928">
+    <End Role="CATEGORIA" Type="Self.CATEGORIA" Multiplicity="0..1" />
+    <End Role="PRODUCTO" Type="Self.PRODUCTO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CATEGORIA">
+        <PropertyRef Name="IdCategoria" />
+      </Principal>
+      <Dependent Role="PRODUCTO">
+        <PropertyRef Name="IdCategoria" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="NegociosEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="CATEGORIA" EntityType="Self.CATEGORIA" />
+    <EntitySet Name="PRODUCTO" EntityType="Self.PRODUCTO" />
+    <AssociationSet Name="FK__PRODUCTO__IdCate__4316F928" Association="Self.FK__PRODUCTO__IdCate__4316F928">
+      <End Role="CATEGORIA" EntitySet="CATEGORIA" />
+      <End Role="PRODUCTO" EntitySet="PRODUCTO" />
+    </AssociationSet>
+    <EntitySet Name="CLIENTE" EntityType="NegociosModel.CLIENTE" />
+    <EntitySet Name="DETALLEPEDIDO" EntityType="NegociosModel.DETALLEPEDIDO" />
+    <EntitySet Name="PEDIDO" EntityType="NegociosModel.PEDIDO" />
+    <AssociationSet Name="FK__PEDIDO__IdClient__4D94879B" Association="NegociosModel.FK__PEDIDO__IdClient__4D94879B">
+      <End Role="CLIENTE" EntitySet="CLIENTE" />
+      <End Role="PEDIDO" EntitySet="PEDIDO" />
+    </AssociationSet>
+    <AssociationSet Name="FK__DETALLEPE__IdPed__52593CB8" Association="NegociosModel.FK__DETALLEPE__IdPed__52593CB8">
+      <End Role="PEDIDO" EntitySet="PEDIDO" />
+      <End Role="DETALLEPEDIDO" EntitySet="DETALLEPEDIDO" />
+    </AssociationSet>
+    <AssociationSet Name="FK__DETALLEPE__IdPro__534D60F1" Association="NegociosModel.FK__DETALLEPE__IdPro__534D60F1">
+      <End Role="PRODUCTO" EntitySet="PRODUCTO" />
+      <End Role="DETALLEPEDIDO" EntitySet="DETALLEPEDIDO" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="CLIENTE">
+    <Key>
+      <PropertyRef Name="IdCliente" />
+    </Key>
+    <Property Name="IdCliente" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+    <Property Name="NombreCia" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="Direccion" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+    <Property Name="idpais" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
+    <Property Name="Telefono" Type="String" Nullable="false" MaxLength="24" FixedLength="false" Unicode="false" />
+    <Property Name="Estado" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
+    <NavigationProperty Name="PEDIDO" Relationship="NegociosModel.FK__PEDIDO__IdClient__4D94879B" FromRole="CLIENTE" ToRole="PEDIDO" />
+  </EntityType>
+  <EntityType Name="DETALLEPEDIDO">
+    <Key>
+      <PropertyRef Name="IdPedido" />
+      <PropertyRef Name="IdProducto" />
+    </Key>
+    <Property Name="IdPedido" Type="Int32" Nullable="false" />
+    <Property Name="IdProducto" Type="Int32" Nullable="false" />
+    <Property Name="PrecioUnidad" Type="Decimal" Nullable="false" Precision="10" Scale="0" />
+    <Property Name="Cantidad" Type="Int16" Nullable="false" />
+    <Property Name="Descuento" Type="Double" Nullable="false" />
+    <NavigationProperty Name="PEDIDO" Relationship="NegociosModel.FK__DETALLEPE__IdPed__52593CB8" FromRole="DETALLEPEDIDO" ToRole="PEDIDO" />
+    <NavigationProperty Name="PRODUCTO" Relationship="NegociosModel.FK__DETALLEPE__IdPro__534D60F1" FromRole="DETALLEPEDIDO" ToRole="PRODUCTO" />
+  </EntityType>
+  <EntityType Name="PEDIDO">
+    <Key>
+      <PropertyRef Name="IdPedido" />
+    </Key>
+    <Property Name="IdPedido" Type="Int32" Nullable="false" />
+    <Property Name="IdCliente" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+    <Property Name="IdEmpleado" Type="Int32" />
+    <Property Name="FechaPedido" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="FechaEntrega" Type="DateTime" Precision="3" />
+    <Property Name="FechaEnvio" Type="DateTime" Precision="3" />
+    <Property Name="Envio" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="Cargo" Type="Decimal" Precision="10" Scale="0" />
+    <Property Name="Destinatario" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="DireccionDestinatario" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+    <Property Name="CiudadDestinatario" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="RegionDestinatario" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="CodPostalDestinatario" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="PaisDestinatario" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="CLIENTE" Relationship="NegociosModel.FK__PEDIDO__IdClient__4D94879B" FromRole="PEDIDO" ToRole="CLIENTE" />
+    <NavigationProperty Name="DETALLEPEDIDO" Relationship="NegociosModel.FK__DETALLEPE__IdPed__52593CB8" FromRole="PEDIDO" ToRole="DETALLEPEDIDO" />
+  </EntityType>
+  <Association Name="FK__PEDIDO__IdClient__4D94879B">
+    <End Type="NegociosModel.CLIENTE" Role="CLIENTE" Multiplicity="0..1" />
+    <End Type="NegociosModel.PEDIDO" Role="PEDIDO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CLIENTE">
+        <PropertyRef Name="IdCliente" />
+      </Principal>
+      <Dependent Role="PEDIDO">
+        <PropertyRef Name="IdCliente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__DETALLEPE__IdPed__52593CB8">
+    <End Type="NegociosModel.PEDIDO" Role="PEDIDO" Multiplicity="1" />
+    <End Type="NegociosModel.DETALLEPEDIDO" Role="DETALLEPEDIDO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PEDIDO">
+        <PropertyRef Name="IdPedido" />
+      </Principal>
+      <Dependent Role="DETALLEPEDIDO">
+        <PropertyRef Name="IdPedido" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__DETALLEPE__IdPro__534D60F1">
+    <End Type="NegociosModel.PRODUCTO" Role="PRODUCTO" Multiplicity="1" />
+    <End Type="NegociosModel.DETALLEPEDIDO" Role="DETALLEPEDIDO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PRODUCTO">
+        <PropertyRef Name="IdProducto" />
+      </Principal>
+      <Dependent Role="DETALLEPEDIDO">
+        <PropertyRef Name="IdProducto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Negocios" Class="NegociosDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=(local);Initial Catalog=Negocios;Integrated Security=True" SettingsObjectName="ConsoleApp3.Properties.Settings" SettingsPropertyName="NegociosConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.PRODUCTO" Member="PRODUCTO">
+    <Type Name="PRODUCTO">
+      <Column Name="IdProducto" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="NombreProducto" Type="System.String" DbType="VarChar(40) NOT NULL" CanBeNull="false" />
+      <Column Name="IdProveedor" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IdCategoria" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="umedida" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="PrecioUnidad" Type="System.Decimal" DbType="Decimal(10,0) NOT NULL" CanBeNull="false" />
+      <Column Name="UnidadesEnExistencia" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Association Name="CATEGORIA_PRODUCTO" Member="CATEGORIA" ThisKey="IdCategoria" OtherKey="IdCategoria" Type="CATEGORIA" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.CATEGORIA" Member="CATEGORIA">
+    <Type Name="CATEGORIA">
+      <Column Name="IdCategoria" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="NombreCategoria" Type="System.String" DbType="VarChar(15) NOT NULL" CanBeNull="false" />
+      <Column Name="Descripcion" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Association Name="CATEGORIA_PRODUCTO" Member="PRODUCTO" ThisKey="IdCategoria" OtherKey="IdCategoria" Type="PRODUCTO" />
+    </Type>
+  </Table>
+</Database>

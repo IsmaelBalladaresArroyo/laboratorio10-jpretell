@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="dddfdba799774b9ea74731a702d21a43" Name="Diagram1">
+        <EntityTypeShape EntityType="NegociosModel.CATEGORIA" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="NegociosModel.PRODUCTO" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <AssociationConnector Association="NegociosModel.FK__PRODUCTO__IdCate__4316F928" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="NegociosModel.CLIENTE" Width="1.5" PointX="0.75" PointY="5.875" />
+        <EntityTypeShape EntityType="NegociosModel.DETALLEPEDIDO" Width="1.5" PointX="5.625" PointY="3.875" />
+        <EntityTypeShape EntityType="NegociosModel.PEDIDO" Width="1.5" PointX="3" PointY="5" />
+        <AssociationConnector Association="NegociosModel.FK__PEDIDO__IdClient__4D94879B" />
+        <AssociationConnector Association="NegociosModel.FK__DETALLEPE__IdPed__52593CB8" />
+        <AssociationConnector Association="NegociosModel.FK__DETALLEPE__IdPro__534D60F1" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
